@@ -35,7 +35,7 @@ function _getKeyAndHour(req) {
   date = new Date(req.body.timestamp);
   dateString = date.toISOString().split("T")[0].replace(/-/g, "");
   hour = date.getUTCHours();
-  key = `kpi:conns:src:${req.body.source}:node:${req.body.node}:day:${dateString}`;
+  key = `kpi:sessions:app:${req.body.source}:node:${req.body.node}:day:${dateString}`;
   return {
     key: key,
     hour: hour,
