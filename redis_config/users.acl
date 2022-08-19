@@ -1,0 +1,4 @@
+user default off
+user administrator on +@all allkeys #92d17cb6bf31ad547f609e6272e1f8c9a0bca00759f9aea8a7e900c1b9d79f33
+user service on +@all -@admin -@dangerous allkeys #8e5b9901251b7e6b7e629f05fec7bfb23b87e35bb8323b9bc6c691558ab39717
+user replicant on +@all -@dangerous allkeys #7c6a91a665b8a2861b283aa36881682fd318e6ee136f9c89c825d29bf49c27b6 
