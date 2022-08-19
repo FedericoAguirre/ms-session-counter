@@ -8,12 +8,18 @@ It is a REST API which has 3  methods:
 1. **/kpi** (GET) method. It retrieves the hourly and daily counters of a particular application, node and date.
 2. **/counter** (POST) method. It receives the application, node and timestamp of a new session and increases the hourly and daily counts.
 3. **/home** (GET) method. It checks the microservice and Redis status doing a PING command and sending back an OK response.
-4. **/dashboard** (GET) method. Shows a realtime  dashboard which updates every 100 ms. TODO.
+<!--TODO.
+4. **/kpi** (GET) method (hour or day options). Get specific, hout or day counter.
+5. **/dashboard** (GET) method. Shows a realtime  dashboard which updates every 100 ms.
+-->
+
+## Session counter architecture
 
 ![Architecture](docs/img/architecture.png)
 
+## Redis log
 
-[Insert app screenshots](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#uploading-assets)
+![Redis log](docs/img/redisLog.png)
 
 # Overview video (Optional)
 
@@ -27,15 +33,15 @@ Here's a short video that explains the project and how it uses Redis:
 
 ### How the data is stored:
 
-Counters are stored in [**Redis Hashes**](https://redis.io/docs/data-types/hashes/). It has the benefit of saving a whole day of session counts having a small footprint and at the same time be able to get a whole day of data in one single record.
+Counters are stored in [**Redis Hashes**](https://redis.io/docs/data-types/hashes/). It has the benefit of saving a whole day of session counts, having a small footprint and at the same time be able to get a whole day of data in one single record.
 
-Session counter (Hash) is saved in this form:
+**Session counter (Hash) definition**
 
-The key has the format:
+The **key** has the format:
 
 ```kpi:sessions:app:{application}:node:{nodeNumber}:day:{YYYYMMDD}```
 
-You can see its composition that follows [Redis suggestions](https://redis.com/blog/5-key-takeaways-for-developing-with-redis/).
+Key composition follows [Redis suggestions](https://redis.com/blog/5-key-takeaways-for-developing-with-redis/).
 
 | Prefix | Value |
 |-|-|
@@ -44,13 +50,40 @@ You can see its composition that follows [Redis suggestions](https://redis.com/b
 | node | Node number |
 | day | Sessions date in format: YYYYMMDD |
 
+**Hash values** definition:
+
+| Key | Value | Nullable |
+|-|-|-|
+| day | Sessions count during the day | No |
+| 0 | Sessions count during 0 hour | Yes |
+| 1 | Sessions count during 0 hour | Yes |
+| N | Sessions count during N hour | Yes |
+| 23 | Sessions count during 23 hour | Yes |
+
 The application uses [transactions](https://redis.io/docs/manual/transactions/) to ensure unique counts and avoid race conditions.
 
+### How the data is accessed:
 
+**At writting**
+
+1. Nodejs calculates the **key and hour**, using the function **_getKeyAndHour**. It receives the [epoch timestamp](https://en.wikipedia.org/wiki/Unix_time) in [UTC timezone](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) so it can be used anywhere in the world.
+2. With key and hour defined, **app increases day and hour keys** in that application, node and day record in one single transaction using the function **incrementKpi**. Redis commands used:
+    -  [WATCH](https://redis.io/commands/watch/). To block that particular hash and avoid race conditions.
+    - [MULTI](https://redis.io/commands/multi/). It start a transaction.
+    - [HINCRBY](https://redis.io/commands/hincrby/). To increment day and hour counts.
+    - [EXEC](https://redis.io/commands/exec/). Executes the transaction.
+
+**At reading**
+
+- [HGETALL](https://redis.io/commands/hgetall/). Gets in one single round the stats for a whole day.
+
+**At checking Redis state**
+
+- [PING](https://redis.io/commands/ping/). Gets an confimation answer from Redis.
+
+### API calls examples. TODO.
 
 Refer to [this example](https://github.com/redis-developer/basic-analytics-dashboard-redis-bitmaps-nodejs#how-the-data-is-stored) for a more detailed example of what you need for this section.
-
-### How the data is accessed:
 
 Refer to [this example](https://github.com/redis-developer/basic-analytics-dashboard-redis-bitmaps-nodejs#how-the-data-is-accessed) for a more detailed example of what you need for this section.
 
