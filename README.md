@@ -35,12 +35,17 @@ The key has the format:
 
 ```kpi:sessions:app:{application}:node:{nodeNumber}:day:{YYYYMMDD}```
 
+You can see its composition that follows [Redis suggestions](https://redis.com/blog/5-key-takeaways-for-developing-with-redis/).
+
 | Prefix | Value |
 |-|-|
 | kpi | sessions *fixed value |
-| app | application name |
+| app | Application str |
 | node | Node number |
 | day | Sessions date in format: YYYYMMDD |
+
+The application uses [transactions](https://redis.io/docs/manual/transactions/) to ensure unique counts and avoid race conditions.
+
 
 
 Refer to [this example](https://github.com/redis-developer/basic-analytics-dashboard-redis-bitmaps-nodejs#how-the-data-is-stored) for a more detailed example of what you need for this section.
