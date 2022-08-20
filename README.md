@@ -37,7 +37,7 @@ Counters are stored in [**Redis Hashes**](https://redis.io/docs/data-types/hashe
 
 **Session counter (Hash) definition**
 
-The **key** has the format:
+<a name="key"></a>The **key** has the format:
 
 ```kpi:sessions:app:{application}:node:{nodeNumber}:day:{YYYYMMDD}```
 
@@ -83,6 +83,10 @@ The application uses [transactions](https://redis.io/docs/manual/transactions/) 
 
 ### API calls examples. TODO.
 
+**http://localhost:3000/kpi** endpoint.
+
+This endpoint get the session counter for an application, node and day. Using the [key](#key) definition. 
+
 Refer to [this example](https://github.com/redis-developer/basic-analytics-dashboard-redis-bitmaps-nodejs#how-the-data-is-stored) for a more detailed example of what you need for this section.
 
 Refer to [this example](https://github.com/redis-developer/basic-analytics-dashboard-redis-bitmaps-nodejs#how-the-data-is-accessed) for a more detailed example of what you need for this section.
@@ -119,19 +123,16 @@ To make deploys work, you need to create free account on [Redis Cloud](https://r
 
 ### Google Cloud Run
 
-[Insert Run on Google button](https://cloud.google.com/blog/products/serverless/introducing-cloud-run-button-click-to-deploy-your-git-repos-to-google-cloud)
+[![Run on Google
+Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run/?git_repo=https://github.com/redis-developer/basic-analytics-dashboard-redis-bitmaps-nodejs.git&revision=feature/deploy-buttons)
 
 ### Heroku
 
-[Insert Deploy on Heroku button](https://devcenter.heroku.com/articles/heroku-button)
-
-### Netlify
-
-[Insert Deploy on Netlify button](https://www.netlify.com/blog/2016/11/29/introducing-the-deploy-to-netlify-button/)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ### Vercel
 
-[Insert Deploy on Vercel button](https://vercel.com/docs/deploy-button)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/redis-developer/basic-analytics-dashboard-redis-bitmaps-nodejs&env=REDIS_ENDPOINT_URI,REDIS_PASSWORD)
 
 ## More Information about Redis Stack
 
