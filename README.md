@@ -85,11 +85,86 @@ The application uses [transactions](https://redis.io/docs/manual/transactions/) 
 
 **http://localhost:3000/kpi** endpoint.
 
-This endpoint get the session counter for an application, node and day. Using the [key](#key) definition. 
+This endpoint get the session counter for an application, node and day. Using the [key](#key) definition.
+The http method is GET and uses the query param **key**.
 
-Refer to [this example](https://github.com/redis-developer/basic-analytics-dashboard-redis-bitmaps-nodejs#how-the-data-is-stored) for a more detailed example of what you need for this section.
+```bash
+curl -X GET http://localhost:3000/kpi\?key\=kpi:sessions:app:local:node:0:day:20220819
+```
 
-Refer to [this example](https://github.com/redis-developer/basic-analytics-dashboard-redis-bitmaps-nodejs#how-the-data-is-accessed) for a more detailed example of what you need for this section.
+Service response.
+
+```JSON
+{
+    "type": "WebResponse",
+    "isError": false,
+    "description": "OK.",
+    "data": {
+        "0": "3000",
+        "1": "3200",
+        "day": "6200"
+    }
+}
+```
+
+**http://localhost:3000/counter** endpoint.
+
+This endpoint increments the session counter for an application, node, day and hour, posting the next JSON data.
+
+Request body.
+
+```JSON
+{
+    "app": "local",
+    "node": 0, 
+    "timestamp": 1660054277326
+}
+```
+
+The http method is POST.
+
+```bash
+curl -X POST \
+    -H 'Content-Type:application/json' \
+    http://localhost:3000/counter \
+    -d '{"app":"local", "node":0, "timestamp":1660054277326}' 
+```
+
+Service response.
+
+```JSON
+{
+    "type":"WebResponse",
+    "isError":false,
+    "description":"OK.",
+    "data": {
+        "type":"CounterResponse","key":"kpi:sessions:app:local:node:0:day:20220809",
+        "day":2,
+        "hour":2
+    }
+}
+```
+
+**http://localhost:3000/home** endpoint.
+
+This endpoint makes a PING to Redis database and returns a positive answer when database is up and runnning, otherwise in returns an error.
+
+The http method is GET.
+
+```bash
+curl -X GET http://localhost:3000/home 
+```
+
+Service response.
+
+```JSON
+{
+    "type":"WebResponse",
+    "isError":false,
+    "description":"Service OK.",
+    "data":null
+}
+```
 
 ### Performance Benchmarks
 
