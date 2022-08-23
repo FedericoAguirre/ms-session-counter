@@ -173,13 +173,42 @@ Service response.
 ## How to run it locally?
 ### Prerequisites
 
-- Redis version 6.2.6+
-- Nodejs version v12.22.5+
+- **Redis** version 6.2.6+
+- **Nodejs** version v12.22.5+
 ### Local installation
 
-You can install
+Instructions for MAC or Linux.
 
-1. Install **Node js**. Take as reference the [Node js downloads page](https://nodejs.org/en/download/).
+Install [Redis server](https://redis.io/docs/getting-started/).
+
+- Check your Redis installation executing
+
+    ```bash
+    redis-server --version
+    ```
+	
+- Create folder /etc/opt/redis/config
+
+    ```bash
+	sudo mkdir -p /etc/opt/redis/config
+    ```
+
+- Copy ALL files contained in redis_config folder in folder /etc/opt/redis/config
+
+    ```bash
+	sudo cp -R redis_config /etc/opt/redis/config/
+    ```
+	
+Install [Nodejs](https://nodejs.org/en/download/).
+
+- Check your Nodejs installation executing
+    ```bash
+	node --version
+    ```
+Redis ACL.
+
+Local configuration
+
 2. Create a **.env** file at this project root folder with your own parameters. You can use the **.env-template** file as reference.
 
 
