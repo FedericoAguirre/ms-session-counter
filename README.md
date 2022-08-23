@@ -171,19 +171,18 @@ Service response.
 [If you migrated an existing app to use Redis, please put performance benchmarks here to show the performance improvements.]
 
 ## How to run it locally?
-
-[Make sure you test this with a fresh clone of your repo, these instructions will be used to judge your app.]
-
 ### Prerequisites
 
-- Redis version 6+
-- Nodejs version 12+
+- Redis version 6.2.6+
+- Nodejs version v12.22.5+
 ### Local installation
 
-#### Session counter setup
+You can install
 
 1. Install **Node js**. Take as reference the [Node js downloads page](https://nodejs.org/en/download/).
 2. Create a **.env** file at this project root folder with your own parameters. You can use the **.env-template** file as reference.
+
+
 3. With **Redis** set and running. Start the **Session counter** app. Using the command:
 
 ```bash
