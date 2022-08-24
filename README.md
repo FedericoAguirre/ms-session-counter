@@ -193,6 +193,12 @@ Install [Redis server](https://redis.io/docs/getting-started/).
 	sudo mkdir -p /etc/opt/redis
     ```
 
+- Create data folder /etc/opt/redis/data
+
+    ```bash
+	sudo mkdir -p /etc/opt/redis/data
+    ```
+
 - Copy ALL files contained in redis_config folder in folder /etc/opt/redis/config
 
     ```bash
