@@ -174,7 +174,7 @@ Service response.
 ### Prerequisites
 
 - **Redis** version 6.2.6+
-- **Nodejs** version v12.22.5+
+- **Nodejs** version 12.22.5+
 ### Local installation
 
 Instructions for MAC or Linux.
@@ -199,17 +199,47 @@ Install [Redis server](https://redis.io/docs/getting-started/).
 	sudo cp -R redis_config /etc/opt/redis/config/
     ```
 	
-Install [Nodejs](https://nodejs.org/en/download/).
+Install [Nodejs](https://nodejs.org/en/download/). You also can use these [instructions](https://github.com/nodesource/distributions/blob/master/README.md).
 
 - Check your Nodejs installation executing
     ```bash
 	node --version
     ```
-Redis ACL.
+**Redis ACL.**
+
+This service uses Redis ACLs for improving security. You can check the [Redis security documentation](https://redis.io/docs/manual/security/acl/).
+
+The current ACL has 3 user:
+- **administrator**. This is the Redis database administrator user. It has all the permissions available in Redis. 
+- **service**. This is the service user which has enabled only operative Redis commands.
+- **replicant**. This role user thought for being used in Redis cluster instances. NOT IMPLEMENTED YET.
+
+These are the defaulted passwords:
+
+| User | Password |
+|-|-|
+| administrator | Redis_Admin! |
+| service | Redis_Service! |
+| replicant | Redis_Replica! |
+
+**ms-session-counter** application is configured to work using the default **service** user and password.
+
+**Redis database** can be managed using the **administrator** user, password and **redis-client** cli.
+But also can be accessed by the other two users. You can use the [AUTH](https://redis.io/commands/auth/) command to authenticate into the server.
+
+**IMPORTANT NOTE!**
+
+It's highly recommended to change the default passwords in production environments. You can do it, calculating the SHA256 hash of the password using the [SHA256 hash calculator](https://xorbin.com/tools/sha256-hash-calculator) and replace the password hash values in the file [**redis_config/users.acl**](redis_config/users.acl).
 
 Local configuration
 
-2. Create a **.env** file at this project root folder with your own parameters. You can use the **.env-template** file as reference.
+1. Open terminal and Start Redis server locally using the next command.
+
+```bash
+redis-server /etc/opt/redis/config/redis_local.conf
+```
+
+2. Create a **.env** file at this project root folder with your own parameters. You can copy the **.env-template** file to **.env** file and use it as a starter point.
 
 
 3. With **Redis** set and running. Start the **Session counter** app. Using the command:
