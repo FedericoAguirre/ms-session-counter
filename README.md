@@ -190,13 +190,13 @@ Install [Redis server](https://redis.io/docs/getting-started/).
 - Create folder /etc/opt/redis/config
 
     ```bash
-	sudo mkdir -p /etc/opt/redis/config
+	sudo mkdir -p /etc/opt/redis
     ```
 
 - Copy ALL files contained in redis_config folder in folder /etc/opt/redis/config
 
     ```bash
-	sudo cp -R redis_config /etc/opt/redis/config/
+	sudo cp -R config /etc/opt/redis/
     ```
 	
 Install [Nodejs](https://nodejs.org/en/download/). You also can use these [instructions](https://github.com/nodesource/distributions/blob/master/README.md).
