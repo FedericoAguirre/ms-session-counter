@@ -197,7 +197,7 @@ Test was executed at a Macbook pro with the next characteristics:
 
 The service can handle **252.4 requests per second over on single counter**.
 
-That capacity may go down when user different applicantions and nodes, because they would be blocking different records.
+That response time may go down when using different applications and nodes, because fo the blocking of different records (keys).
 
 Application may also implement [Lua scripting](https://redis.io/docs/manual/programmability/eval-intro/) to reduce the response times.
 
