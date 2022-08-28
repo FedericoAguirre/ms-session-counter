@@ -252,7 +252,7 @@ Install [Nodejs](https://nodejs.org/en/download/). You also can use these [instr
 
 This service uses Redis ACLs for improving security. You can check the [Redis security documentation](https://redis.io/docs/manual/security/acl/).
 
-The current ACL has 3 user:
+The current ACL has 3 users:
 - **administrator**. This is the Redis database administrator user. It has all the permissions available in Redis. 
 - **service**. This is the service user which has enabled only operative Redis commands.
 - **replicant**. This role user thought for being used in Redis cluster instances. NOT IMPLEMENTED YET.
@@ -282,13 +282,13 @@ It's highly recommended to change the default passwords in production environmen
 redis-server /etc/opt/redis/config/redis_local.conf
 ```
 
-2. in a new terminal. Create a **.env** file at the root folder with your own parameters. You can copy the **.env-template** file to **.env** file and use it as a starter point.
+2. In a new terminal. Create a **.env** file at the root folder with your own parameters. You can copy the **.env-template** file to **.env** file and use it as a starter point.
 
 ```bash
 cp .env-template .env
 ```
 
-if in production, change **.env** file parameters as needed. Save the file.
+If in production, change **.env** file parameters as needed. Save the file.
 
 3. Set your local environment parameters, executing the next command:
 
