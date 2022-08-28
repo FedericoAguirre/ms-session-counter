@@ -5,8 +5,8 @@ This is a **Redis + Nodejs** backend microservice used for count sessions from a
 It can keep the session count by application, node and day (and hours). Very useful for realtime dashboards.
 
 It is a REST API which has 3  methods:
-1. **/kpi** (GET) method. It retrieves the hourly and daily counters of a particular application, node and date.
-2. **/counter** (POST) method. It receives the application, node and timestamp of a new session and increases the hourly and daily counts.
+1. **/counter** (POST) method. It receives the application, node and timestamp of a new session and increases the hourly and daily counts.
+2. **/kpi** (GET) method. It retrieves the hourly and daily counters of a particular application, node and date.
 3. **/home** (GET) method. It checks the microservice and Redis status doing a PING command and sending back an OK response.
 <!--TODO.
 4. **/kpi** (GET) method (hour or day options). Get specific, hout or day counter.
@@ -20,14 +20,6 @@ It is a REST API which has 3  methods:
 ## Redis log
 
 ![Redis log](docs/img/redisLog.png)
-
-# Overview video (Optional)
-
-Here's a short video that explains the project and how it uses Redis:
-
-[Insert your own video here, and remove the one below]
-
-[![Embed your YouTube video](https://i.ytimg.com/vi/vyxdC1qK4NE/maxresdefault.jpg)](https://www.youtube.com/watch?v=vyxdC1qK4NE)
 
 ## How it works
 
@@ -81,31 +73,8 @@ The application uses [transactions](https://redis.io/docs/manual/transactions/) 
 
 - [PING](https://redis.io/commands/ping/). Gets an confimation answer from Redis.
 
-### API calls examples. TODO.
-
-**http://localhost:3000/kpi** endpoint.
-
-This endpoint get the session counter for an application, node and day. Using the [key](#key) definition.
-The http method is GET and uses the query param **key**.
-
-```bash
-curl -X GET http://localhost:3000/kpi\?key\=kpi:sessions:app:local:node:0:day:20220819
-```
-
-Service response.
-
-```JSON
-{
-    "type": "WebResponse",
-    "isError": false,
-    "description": "OK.",
-    "data": {
-        "0": "3000",
-        "1": "3200",
-        "day": "6200"
-    }
-}
-```
+<a name="api-calls-examples"></a>
+### API calls examples.
 
 **http://localhost:3000/counter** endpoint.
 
@@ -130,6 +99,8 @@ curl -X POST \
     -d '{"app":"local", "node":0, "timestamp":1660054277326}' 
 ```
 
+**NOTE:** It's very important to include the **header**: ```Content-Type:application/json```
+
 Service response.
 
 ```JSON
@@ -141,6 +112,31 @@ Service response.
         "type":"CounterResponse","key":"kpi:sessions:app:local:node:0:day:20220809",
         "day":2,
         "hour":2
+    }
+}
+```
+
+
+**http://localhost:3000/kpi** endpoint.
+
+This endpoint get the session counter for an application, node and day. Using the [key](#key) definition.
+The http method is GET and uses the query param **key**.
+
+```bash
+curl -X GET http://localhost:3000/kpi\?key\=kpi:sessions:app:local:node:0:day:20220819
+```
+
+Service response.
+
+```JSON
+{
+    "type": "WebResponse",
+    "isError": false,
+    "description": "OK.",
+    "data": {
+        "0": "3000",
+        "1": "3200",
+        "day": "6200"
     }
 }
 ```
@@ -243,24 +239,41 @@ But also can be accessed by the other two users. You can use the [AUTH](https://
 
 It's highly recommended to change the default passwords in production environments. You can do it, calculating the SHA256 hash of the password using the [SHA256 hash calculator](https://xorbin.com/tools/sha256-hash-calculator) and replace the password hash values in the file [**redis_config/users.acl**](redis_config/users.acl).
 
-Local configuration
+**Local configuration**
 
-1. Open terminal and Start Redis server locally using the next command.
+1. Open a terminal and Start Redis server locally using the next command.
 
 ```bash
 redis-server /etc/opt/redis/config/redis_local.conf
 ```
 
-2. Create a **.env** file at this project root folder with your own parameters. You can copy the **.env-template** file to **.env** file and use it as a starter point.
+2. in a new terminal. Create a **.env** file at the root folder with your own parameters. You can copy the **.env-template** file to **.env** file and use it as a starter point.
 
+```bash
+cp .env-template .env
+```
 
-3. With **Redis** set and running. Start the **Session counter** app. Using the command:
+if in production, change **.env** file parameters as needed. Save the file.
+
+3. Set your local environment parameters, executing the next command:
+
+```bash
+source .env
+```
+
+4. Install nodejs modules. Execute the next command:
+
+```bash
+npm install
+```
+
+5. With **Redis** set and running. Start the **Session counter** app. Using the command:
 
 ```bash
 node app.js
 ```
 
-[Insert instructions for local installation]
+6. Start doing API requests to the **Session counter** app,  as noted in [API calls examples](#api-calls-examples) section.
 
 ## Deployment
 
