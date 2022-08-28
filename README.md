@@ -233,7 +233,7 @@ Install [Redis server](https://redis.io/docs/getting-started/).
 - Add write permissions to data folder /etc/opt/redis/data
 
     ```bash
-	sudo chmod a+w /etc/opt/redis/data
+	sudo chmod a+wr /etc/opt/redis/data
     ```
 
 - Copy ALL files contained in redis_config folder in folder /etc/opt/redis/config
