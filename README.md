@@ -1,6 +1,6 @@
 # ms-session-counter
 
-This is a **Redis + Nodejs** backend microservice used for count sessions from another apps.
+This is a **Redis + Nodejs** backend microservice used for counting sessions from another apps.
 
 It can keep the session count by application, node and day (and hours). Very useful for realtime dashboards.
 
@@ -37,10 +37,10 @@ Key composition follows [Redis suggestions](https://redis.com/blog/5-key-takeawa
 
 | Prefix | Value |
 |-|-|
-| kpi | sessions *fixed value |
-| app | Application str |
-| node | Node number |
-| day | Sessions date in format: YYYYMMDD |
+| kpi | sessions - string (fixed value) |
+| app | Application name - string |
+| node | Node number - integer (starts at 0) |
+| day | Sessions date- string in format: YYYYMMDD |
 
 **Hash values** definition:
 
