@@ -164,7 +164,42 @@ Service response.
 
 ### Performance Benchmarks
 
-[If you migrated an existing app to use Redis, please put performance benchmarks here to show the performance improvements.]
+I used [Apache JMeter](https://jmeter.apache.org/) to run a performance test.
+
+Here is the [test](jmeter/ms-session-counter.jmx) file.
+
+Settings of JMeter test:
+
+![Settings 1](docs/img/perf_01.png)
+![Settings 2](docs/img/perf_02.png)
+![Settings 3](docs/img/perf_03.png)
+![Settings 4](docs/img/perf_04.png)
+![Settings 5](docs/img/perf_05.png)
+
+**Results**
+
+![Results](docs/img/perf_06.png)
+
+Test was executed at a Macbook pro with the nexts characteristics:
+
+|Feature|Value
+|-|-|
+|Modelo|MacBook Pro|
+|Identifier|MacBookPro11,2|
+|Processor|Intel Core i7 (4 Cores)|
+|Processor speed|2 GHz|
+|Processor number|1|
+|Cores|4|
+|Cache level 2 (per core)|256 KB|
+|Caché level 3|6 MB|
+|Hyper-Threading|Activated|
+|RAM|8 GB|
+
+The service can handle **252.4 requests per second over on single counter**.
+
+That capacity may go down when user different applicantions and nodes, because they would be blocking different records.
+
+Application may also implement [Lua scripting](https://redis.io/docs/manual/programmability/eval-intro/) to reduce the response times.
 
 ## How to run it locally?
 ### Prerequisites
