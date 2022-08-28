@@ -180,7 +180,7 @@ Settings of JMeter test:
 
 ![Results](docs/img/perf_06.png)
 
-Test was executed at a Macbook pro with the nexts characteristics:
+Test was executed at a Macbook pro with the next characteristics:
 
 |Feature|Value
 |-|-|
