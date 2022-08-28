@@ -1,0 +1,22 @@
+{
+    "app_name": "ms-session-counter",
+    "description": "This is a Redis + Nodejs backend microservice used for counting sessions from another apps.",
+    "hidden": "false",
+    "rank": "21",
+    "type": "Full App",
+    "contributed_by": "Community",
+    "repo_url": "https://github.com/FedericoAguirre/ms-session-counter.git",
+    "download_url": "https://github.com/FedericoAguirre/ms-session-counter/archive/refs/heads/main.zip",
+    "hosted_url": "",
+    "quick_deploy": "true",
+    "deploy_buttons": ["heroku", "vercel", "Google"],
+    "language": ["Nodejs", "Javascript"],
+    "redis_commands": ["PING", "HGETALL", "MULTI", "HINCRBY", "EXEC", "WATCH", "AUTH"],
+    "redis_features": ["caching", "ACL", "Transactions", "Hashes"],
+    "redis_modules": [],
+    "app_image_urls": ["https://github.com/FedericoAguirre/ms-session-counter/blob/main/docs/img/architecture.png"],
+    "youtube_url": "",
+    "special_tags": ["Hackathon"],
+    "verticals": ["Technology", "Any"],
+    "markdown": "README.md"
+}
