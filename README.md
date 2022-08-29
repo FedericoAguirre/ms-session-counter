@@ -8,10 +8,6 @@ It is a REST API which has 3  methods:
 1. **/counter** (POST) method. It receives the application, node and timestamp of a new session and increases the hourly and daily counts.
 2. **/kpi** (GET) method. It retrieves the hourly and daily counters of a particular application, node and date.
 3. **/home** (GET) method. It checks the microservice and Redis status doing a PING command and sending back an OK response.
-<!--TODO.
-4. **/kpi** (GET) method (hour or day options). Get specific, hout or day counter.
-5. **/dashboard** (GET) method. Shows a realtime  dashboard which updates every 100 ms.
--->
 
 ## Session counter architecture
 
